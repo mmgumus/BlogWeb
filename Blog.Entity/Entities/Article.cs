@@ -1,8 +1,9 @@
-﻿namespace Blog.Entity.Entities;
+﻿using Blog.Core.Entities;
 
-public class Article
+namespace Blog.Entity.Entities;
+
+public class Article : EntityBase, IEntityBase
 {
-    public Guid Id { get; set; }
     public string Title { get; set; }
     public string Content { get; set; }
     public int ViewCount { get; set; }
