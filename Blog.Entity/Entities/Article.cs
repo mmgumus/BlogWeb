@@ -1,10 +1,10 @@
-﻿namespace Blog.Entity;
+﻿namespace Blog.Entity.Entities;
 
 public class Article
 {
     public Guid Id { get; set; }
     public string Title { get; set; }
-    public String Content { get; set; }
+    public string Content { get; set; }
     public int ViewCount { get; set; }
 
     public Guide CategoryId { get; set; }
