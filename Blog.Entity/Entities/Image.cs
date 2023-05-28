@@ -1,6 +1,8 @@
-﻿namespace Blog.Entity.Entities;
+﻿using Blog.Core.Entities;
 
-public class Image
+namespace Blog.Entity.Entities;
+
+public class Image : EntityBase
 {
     public string FileName { get; set; }
     public string FileType { get; set; }
