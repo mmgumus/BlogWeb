@@ -14,7 +14,7 @@ public interface IRepository<T> where T : class, IEntityBase, new()
         params Expression<Func<T, object>>[] includeProperties);
 
     Task<T> GetByIdAsync(Guid id);
-    Task UpdateAsync(T entity);
+    Task<T> UpdateAsync(T entity);
     Task DeleteAsync(T entity);
 
     Task<bool> AnyAsync(Expression<Func<T, bool>> predicate = null);

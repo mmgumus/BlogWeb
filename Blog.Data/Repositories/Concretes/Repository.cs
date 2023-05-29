@@ -4,6 +4,8 @@ using Blog.Data.Context;
 using Blog.Data.Repositories.Abstractions;
 using Blog.Entity.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+ 
 
 namespace Blog.Data.Repositories.Concretes;
 
@@ -20,6 +22,8 @@ public class Repository<T> : IRepository<T> where T : class, IEntityBase, new()
     {
         get => dbContext.Set<T>();
     }
+
+   
 
     public async Task<List<T>> GetAllAsync(Expression<Func<T, bool>> predicate = null,
         params Expression<Func<T, object>>[] includeProperties)
@@ -54,39 +58,39 @@ public class Repository<T> : IRepository<T> where T : class, IEntityBase, new()
                 query = query.Include(includeProperty);
             }
         }
+
         return query.SingleAsync();
 
-
-        public async Task<T> GetByIdAsync(Guid id)
-        {
-            return await Table.FindAsync(id);
-        }
-
-        public async Task UpdateAsync(T entity)
-        {
-            await Task.Run(() => Table.Update(entity));
-            return entity;
-        }
-
-        public async Task DeleteAsync(T entity)
-        {
-            await Task.Run(() => Table.Remove(entity));
-            
-        }
-
-        public Task<bool> AnyAsync(Expression<Func<T, bool>> predicate = null)
-        {
-            return await Table.AnyAsync(predicate);
-        }
-
-        public Task<int> CountAsync(Expression<Func<T, bool>> predicate = null)
-        {
-            return await Table.CountAsync(predicate);
-        }
-
-
-        public async Task AddAsync(T entity)
-        {
-            await Table.AddAsync(entity);
-        }
     }
+
+    public async Task AddAsync(T entity)
+    {
+        await Table.AddAsync(entity);
+    }
+
+    public async Task<T> GetByIdAsync(Guid id)
+    {
+        return await Table.FindAsync(id);
+    }
+
+    public async Task<T> UpdateAsync(T entity)
+    {
+        await Task.Run(() => Table.Update(entity));
+        return entity;
+    }
+
+    public async Task DeleteAsync(T entity)
+    {
+        await Task.Run(() => Table.Remove(entity));
+    }
+
+    public async Task<bool> AnyAsync(Expression<Func<T, bool>> predicate = null)
+    {
+        return await Table.AnyAsync(predicate);
+    }
+
+    public async Task<int> CountAsync(Expression<Func<T, bool>> predicate = null)
+    {
+        return await Table.CountAsync(predicate);
+    }
+}
