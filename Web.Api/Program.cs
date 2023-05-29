@@ -2,6 +2,7 @@ using Blog.Data.Context;
 using Microsoft.EntityFrameworkCore;
 
 using Blog.Data.Extentions;
+using Blog.Service.Extentions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 builder.Services.LoadDataLayerExtentions(builder.Configuration);
+builder.Services.LoadServiceLayerExtention(builder.Configuration);
 
 
 

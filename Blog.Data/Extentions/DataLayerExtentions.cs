@@ -16,7 +16,7 @@ public static class DataLayerExtentions
         services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
         services.AddDbContext<AppDbContext>(options =>
             options.UseSqlServer(config.GetConnectionString("DefaultConnection")));
-        services.AddScoped(typeof(IUnitOfWorks), typeof(UnitOfWork));
+        services.AddScoped<IUnitOfWork, UnitOfWork>();
         
         return services;
     }

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Blog.Data.UnitOfWorks;
 
-public class UnitOfWork : IUnitOfWorks
+public class UnitOfWork : IUnitOfWork
 {
     private readonly AppDbContext dbContext;
 

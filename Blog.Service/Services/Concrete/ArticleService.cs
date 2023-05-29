@@ -1,6 +1,5 @@
 ﻿using Blog.Entity.Entities;
 using Blog.Service.Services.Abstractions;
-using Blog.Data.IUnitOfWork;
 using Blog.Data.UnitOfWorks;
 
 
@@ -14,7 +13,7 @@ namespace Blog.Service.Services.Concrete
             this.unitOfWork = unitOfWork;
         }
 
-        public async Task<List<Article>> GetAllAsync()
+        public async Task<List<Article>> GetAllArticleAsync()
         {
             return await unitOfWork.GetRepository<Article>().GetAllAsync();
         }

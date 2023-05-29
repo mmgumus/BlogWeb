@@ -7,7 +7,7 @@ using Blog.Entity.Entities;
 
 namespace Blog.Service.Services.Abstractions
 {
-    internal interface IArticleService
+    public interface IArticleService
     {
         Task<List<Article>> GetAllArticleAsync();
     }
