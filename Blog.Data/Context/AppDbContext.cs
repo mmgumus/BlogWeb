@@ -1,4 +1,5 @@
 ﻿using System.Net.Mime;
+using System.Reflection;
 using Blog.Entity.Entities;
 using Microsoft.EntityFrameworkCore;
 
@@ -17,6 +18,12 @@ public class AppDbContext : DbContext
     public DbSet<Article> Articles { get; set; }
     public DbSet<Category> Categories { get; set; }
     public DbSet<Image> Images { get; set; }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+        base.OnModelCreating(modelBuilder);
+    }
 
 
     
