@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using Blog.Service.Services.Abstractions;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Web.Api.Models;
-using Blog.Service.Services.Abstractions;
-
+using Blog.Service.Services.Concrete;
 
 namespace Web.Api.Controllers
 {
@@ -11,13 +11,11 @@ namespace Web.Api.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IArticleService articleService;
-       
 
         public HomeController(ILogger<HomeController> logger, IArticleService articleService)
         {
             _logger = logger;
             this.articleService = articleService;
-            
         }
 
         public async Task<IActionResult> Index()
@@ -26,8 +24,9 @@ namespace Web.Api.Controllers
             return View(articles);
         }
 
-        public  IActionResult Privacy()
+        public IActionResult Privacy()
         {
+            
             return View();
         }
 
