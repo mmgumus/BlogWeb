@@ -19,9 +19,10 @@ public class ArticleMap : IEntityTypeConfiguration<Article>
             CategoryId = Guid.Parse("43111C27-BD52-4EBF-A2A1-4045FC8BC6CF"),
             CreatedBy = "Admin Test",
             CreatedDate = DateTime.Now,
-            IsDeleted = false
+            IsDeleted = false,
+            UserId = Guid.Parse("34F4249A-E193-4224-B881-43FB15C8DCFB"),
 
-        },
+            },
 
             new Article
             {
@@ -33,7 +34,8 @@ public class ArticleMap : IEntityTypeConfiguration<Article>
                 ImageId = Guid.Parse("278E8DF1-9DC0-47D1-80F4-F3C5A3622CC8"),
                 CreatedBy = "Admin Test2",
                 CreatedDate = DateTime.Now,
-                IsDeleted = false
+                IsDeleted = false,
+                UserId = Guid.Parse("906CF7B6-99AD-49D4-80DD-70B75E6B1DD6"),
             }
             );
 

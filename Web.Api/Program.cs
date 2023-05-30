@@ -1,9 +1,10 @@
 using Blog.Data.Context;
 using Microsoft.EntityFrameworkCore;
-
 using Blog.Data.Extentions;
+using Blog.Entity.Entities;
 using Blog.Service.Extentions;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,22 +13,34 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.LoadDataLayerExtentions(builder.Configuration);
 builder.Services.LoadServiceLayerExtention(builder.Configuration);
+builder.Services.AddSession();
+
+builder.Services.AddIdentity<AppUser, AppRole>(opt =>
+    {
+        opt.Password.RequireNonAlphanumeric = false;
+        opt.Password.RequireLowercase = false;
+        opt.Password.RequireUppercase = false;
+    })
+    .AddRoleManager<RoleManager<AppRole>>()
+    .AddEntityFrameworkStores<AppDbContext>()
+    .AddDefaultTokenProviders();
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+builder.Services.ConfigureApplicationCookie(config =>
+{
+    config.LoginPath = new PathString("/Admin/Auth/Login");
+    config.LogoutPath = new PathString("/Admin/Auth/Logout");
+    config.Cookie = new CookieBuilder
+    {
+        Name = "Blog",
+        HttpOnly = true,
+        SameSite = SameSiteMode.Strict,
+        SecurePolicy = CookieSecurePolicy.SameAsRequest // canlýda always olmasý gerekiyor 
+    };
+    config.SlidingExpiration = true;
+    config.ExpireTimeSpan = TimeSpan.FromDays(7);
+    config.AccessDeniedPath = new PathString("/Admin/Auth/AccessDenied");
+});
 
 var app = builder.Build();
 
@@ -44,6 +57,10 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
+
+app.UseSession();
+
 app.UseAuthorization();
 
 app.UseEndpoints(endpoints =>
@@ -54,7 +71,6 @@ app.UseEndpoints(endpoints =>
         pattern: "Admin/{controller=Home}/{action=Index}/{id?}");
     endpoints.MapDefaultControllerRoute();
 });
-
 
 
 app.Run();
