@@ -1,5 +1,5 @@
 ﻿@using Blog.Entity.Entities
-@model List<Article>
+@model List<ArticleDto>
 @{
     ViewData["Title"] = "Home Page";
 }
@@ -9,10 +9,13 @@
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
 
-@foreach(var article in Model)
+@foreach (var article in Model)
 {
     <div>
         <h2>@article.Title</h2>
         <p>@article.Content</p>
     </div>
 }
+
+
+
